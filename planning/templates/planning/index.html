@@ -1,1 +1,130 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}Plan Board:Главная{% endblock %}
+
+
+
+{% block content %}
+<main>
+	<!-- offer -->
+	<div class="offer">
+		<h2>Хочешь планировать?<br> Выбирай Plan Board!</h2>
+
+		<div class="offer-cards">
+			<div class="offer-card">
+				<img src="{% static 'images/svg/productivnost.svg' %}" alt="">
+				<div class="offer-card__label">Продуктивность</div>
+			</div>
+
+
+			<div class="offer-card">
+				<img src="{% static 'images/svg/goal.svg' %}" alt="">
+				<div class="offer-card__label">Цели</div>
+			</div>
+
+			<div class="offer-card">
+				<img src="{% static 'images/svg/lightbulb.svg' %}" alt="">
+				<div class="offer-card__label">Ясность</div>
+			</div>
+		</div>
+
+		<div class="offer_auth">
+			<a href="#" class="offer_auth__sign-up">Зарегистрироваться</a>
+			<a href="#" class="offer_auth__sign-in">Войти</a>
+		</div>
+	</div>
+
+	<img src="{% static 'images/img/offer_image.png' %}" alt="" class="offer_image">
+
+
+	<!-- templates examples -->
+	<div class="templates_ex">
+		<div class="templates_container">
+			<h3 class="templates_ex-title">Примеры шаблонов</h3>
+
+			<div class="templates_blocks">
+				<div>
+					<div class="template_block" id="t1">
+						
+					</div>
+					<div class="template_block" id="t2">
+						
+					</div>
+				</div>
+
+				<div class="template_block" id="t3">
+					
+				</div>
+
+				<div>
+					<div class="template_block" id="t4">
+						
+					</div>
+					<div style="display: flex;">
+						<div class="template_block" id="t5">
+							
+						</div>
+						<div class="template_block" id="t6">
+							
+						</div>	
+					</div>
+				</div>
+				<div>
+					<div class="template_block" id="t7">
+						
+					</div>
+					<div class="template_block" id="t8">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- quick start -->
+
+	<div class="quick_start">
+		<h3 class="quick_start-title">Как начать планировать?</h3>
+
+		<div class="quick_start-content">
+			<div class="step" id="s1">
+				<div class="step_info">
+					<h4>Зарегистрируйся</h4>
+
+					<p>Зарегистрируйся на сайте. Это можно сделать, нажав на кнопку вверху страницы. Для регистрации не понадобится много времени. Придумай логин и пароль, а также введи свою почту. Если вы уже создавали аккаунт, то просто войдите, нажав на кнопку “Войти” вверху страницы.</p>
+				</div>
+
+
+				<div class="step_image">
+					
+				</div>
+			</div>
+
+			<div class="step" id="s2">
+				<div class="step_info">
+					<h4>Создай шаблон</h4>
+
+					<p>Перейди в раздел ‘Мои финансы” и найди там список шаблонов. Если предложенных нами вам окажется мало, то создайте свои. Это можно сделать, нажав на “+”. Просто выбирайте элементы, нужные вам и настраивайте всё под себя. Нажмите “Сохранить”</p>
+				</div>
+
+				<div class="step_image">
+					
+				</div>
+			</div>
+
+			<div class="step" id="s3">
+				<div class="step_info">
+					<h4>Добавляй планы!</h4>
+
+					<p>Выбирайте нужный вам шаблон и планируйте, создавая новые записи для нужного вам шаблона. Шаблон - это ваш чертёж, используя который, вы можете создавать новые эелементы!</p>
+				</div>
+
+
+				<div class="step_image">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load static %}
+<header>
+	<div class="logo">
+		<div class="logo-img">
+			<img src="{% static 'images/svg/logo.svg' %}" alt="">
+		</div>
+		<h1 class="logo-text">Plan Board</h1>
+	</div>
+
+	<div class="menu">
+		<ul class="menu_elems">
+			<li class="menu_el active"><a href="{% url 'index' %}">Главная</a></li>
+			<li class="menu_el"><a href="#">Мои Планы</a></li>
+			<li class="menu_el"><a href="#">Помощь</a></li>
+		</ul>
+	</div>
+</header>
