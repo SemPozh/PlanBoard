@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{%block title%}Регистриция{% endblock %}
+
+
+{% block content %}
+<main>
+
+	{% if messages %}
+        {% for message in messages %}
+        	{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+	            <div class="message success">
+	                {{ message }}
+	            </div>
+            {% else %}
+                <div class="message error">
+                	{{ message }}
+            	</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+	<div class="register">
+		<h2>Регистрация</h2>
+
+		<form action="{% url 'register' %}" method="post" class="register-form">
+			{% csrf_token %}
+			<div class="form__input">
+				<label for="login">Ваш логин</label>
+				{{ form.username }}
+				{{ form.username.errors }}
+			</div>
+			<div class="form__input">
+				<label for="email">Ваша почта</label>
+				{{ form.email }}
+				{{ form.email.errors }} 
+			</div>
+
+			<div class="form__input">
+				<label for="password1">Ваш пароль</label>
+				{{ form.password1 }}
+				{{ form.password1.errors }} 
+			</div>
+
+			<div class="form__input">
+				<label for="password2">Подтверждение пароля</label>
+				{{ form.password2 }}
+				{{ form.password2.errors }} 
+				<a href="{% url 'login' %}" class="sign_in__link">Войти</a>
+			</div>
+
+			{{ form.non_field_errors }}
+
+			<input type="submit" value="Отправить" class="submit_btn">
+		</form>
+		
+	</div>
+
+
+</main>
+{% endblock %}

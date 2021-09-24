@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Plan Board:Главная{% endblock %}
+{% block title %}Главная{% endblock %}
 
 
 
 {% block content %}
 <main>
+
+	{% if messages %}
+        {% for message in messages %}
+        	{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+	            <div class="message success">
+	                {{ message }}
+	            </div>
+            {% else %}
+                <div class="message error">
+                	{{ message }}
+            	</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 	<!-- offer -->
 	<div class="offer">
 		<h2>Хочешь планировать?<br> Выбирай Plan Board!</h2>
@@ -28,10 +42,19 @@
 			</div>
 		</div>
 
+		{% if request.user.is_authenticated %}
+
+			<div class="offer_auth">
+			<div class="welcome">Добро пожаловать, {{ request.user.username }}</div>
+			<a href="{% url 'logout' %}" class="offer_auth__sign-in">Выйти</a>
+			</div>
+
+		{% else %}
 		<div class="offer_auth">
-			<a href="#" class="offer_auth__sign-up">Зарегистрироваться</a>
-			<a href="#" class="offer_auth__sign-in">Войти</a>
+			<a href="{% url 'register' %}" class="offer_auth__sign-up">Зарегистрироваться</a>
+			<a href="{% url 'login' %}" class="offer_auth__sign-in">Войти</a>
 		</div>
+		{% endif %}
 	</div>
 
 	<img src="{% static 'images/img/offer_image.png' %}" alt="" class="offer_image">

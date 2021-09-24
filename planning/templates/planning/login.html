@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{%block title%}Вход{% endblock %}
+
+
+{% block content %}
+<main>
+	{% if messages %}
+        {% for message in messages %}
+        	{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+	            <div class="message success">
+	                {{ message }}
+	            </div>
+            {% else %}
+                <div class="message error">
+                	{{ message }}
+            	</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+	<div class="register">
+		<h2>Вход</h2>
+
+		<form action="{% url 'login' %}" method="post" class="register-form">
+			{% csrf_token %}
+			<div class="form__input">
+				<label for="login">Ваш логин</label>
+				{{form.username}}
+				{{ form.username.errors }} 
+			</div>
+
+			<div class="form__input">
+				<label for="password1">Ваш пароль</label>
+				{{form.password}}
+				{{ form.password.errors }} 
+
+				<a href="{% url 'register' %}" class="sign_in__link">Зарегистрироваться</a>
+				<a href="{% url 'reset_password' %}" class="forgot_pasword__link">Забыли пароль?</a>
+			</div>
+			
+			{{ form.non_field_errors }}
+
+			<input type="submit" value="Отправить" class="submit_btn">
+		</form>
+		
+	</div>
+
+
+</main>
+{% endblock %}
