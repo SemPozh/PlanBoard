@@ -6,6 +6,9 @@ from django.core.mail import send_mail
 import hashlib
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+from .models import Field, Template
+from django.http import JsonResponse
+import json
 
 
 def index(request):
@@ -116,3 +119,88 @@ def change_password(request, id_hash):
         form = ChangePasswordForm()
 
     return render(request, 'planning/change_password.html', context={'form': form})
+
+
+def add_template(request):
+    fields = Field.objects.all()
+    return render(request, 'planning/add_template.html', context={'fields': fields})
+
+
+def ajax_add_template(request):
+    if request.is_ajax():
+        field_id = request.GET['field_id']
+        elem_id = request.GET['elem_id']
+
+        field_obj = Field.objects.get(id=field_id)
+        if field_obj.title == 'Большое поле':
+            input_html = f'<div class="textarea_wrapper">' \
+                         f'<label class="input_label" for="name{elem_id}"></label>' \
+                         f'<textarea class="{field_obj.input_name.css_class} field_elem" name="name{elem_id}" field_id={field_id}></textarea>' \
+                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'</div>'
+        elif field_obj.title == 'Поле с выбором':
+            input_html = f'<div class="select_wrapper">' \
+                         f'<label class="input_label" for="name{elem_id}"></label>' \
+                         f'<div class="select_wrap">' \
+                         f'<select class="{field_obj.input_name.css_class} field_elem" field_id={field_id}>' \
+                         f'<option value="Some option" class="select_option">Some option</option>' \
+                         f'<option value="Another option" class="select_option">Another option</option>' \
+                         f'</select>' \
+                         f'</div>' \
+                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'</div>'
+        elif field_obj.input_name.css_class == 'input_radio_css' or  field_obj.input_name.css_class == 'input_checkbox_css':
+
+            input_html = f'<div>'\
+                         f'<label class="input_label_for_button" for="name{elem_id}"></label>'\
+                         f'<div class="button_input field_elem" field_id={field_id}>'\
+                         f'<div class="button_wrap" elem_id={elem_id}>' \
+                         f'<label class="{field_obj.input_name.css_class}_label">' \
+                         f'<input type={field_obj.input_name.title} class="{field_obj.input_name.css_class}" name="name{elem_id}" value="Some option" checked>' \
+                         f'<span class="{field_obj.input_name.css_class}_fake"></span>' \
+                         f'<span class="text">Some option</span>' \
+                         f'</label>' \
+                         f'<label class="{field_obj.input_name.css_class}_label">' \
+                         f'<input type={field_obj.input_name.title} class="{field_obj.input_name.css_class}" name="name{elem_id}" value="Another option">' \
+                         f'<span class="{field_obj.input_name.css_class}_fake"></span>' \
+                         f'<span class="text">Another option</span>' \
+                         f'</label>' \
+                         f'</div>' \
+                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'</div>'\
+                         f'</div>'
+
+        else:
+            input_html = f'<div class="input_wrapper">' \
+                         f'<label class="input_label" for="name{elem_id}"></label>' \
+                         f'<input type="{field_obj.input_name.title}" class="{field_obj.input_name.css_class} field_elem" name="name{elem_id}" field_id={field_id}>' \
+                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'</div>'
+
+        data = {
+            'input_html': input_html,
+            'field_title': field_obj.title,
+        }
+
+        return JsonResponse(data)
+
+
+def ajax_save_input_settings(request):
+    if request.is_ajax():
+        return JsonResponse({'data': 1})
+
+
+def ajax_save_template(request):
+    if request.is_ajax():
+        data = json.loads(request.POST['data'])
+        user = request.user
+        template_title = data['template_title']
+        template_data = data['template_data']
+
+        Template.objects.create(user_id=user.id, title=template_title, fields=template_data)
+
+        return JsonResponse({'data': 1})
+
+
+def my_plans(request):
+    pass

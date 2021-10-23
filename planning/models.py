@@ -47,6 +47,9 @@ class Template(models.Model):
     # }
     # ]
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = 'Шаблон'
         verbose_name_plural = 'Шаблоны'
@@ -84,6 +87,9 @@ class Field(models.Model):
     type_of_data = models.ForeignKey('Type', verbose_name='Тип данных', on_delete=models.PROTECT)
     input_name = models.ForeignKey('Input', verbose_name="Имя поля", on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = 'Поле'
         verbose_name_plural = 'Поля'
@@ -91,6 +97,9 @@ class Field(models.Model):
 
 class Type(models.Model):
     title = models.CharField(max_length=100, verbose_name='Тип')
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name = 'Тип'
@@ -100,6 +109,9 @@ class Type(models.Model):
 class Input(models.Model):
     title = models.CharField(max_length=100, verbose_name='Тип')
     css_class = models.CharField(max_length=150, verbose_name="CSS Класс")
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name = 'Ввод'

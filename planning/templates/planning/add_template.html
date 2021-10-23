@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Добавить шаблон{% endblock %}
+
+{% block content %}
+<main>
+	<div class="create_tmp">
+		<div class="input_list">
+			<ul>
+				{% for field in fields %}
+				<li class="input_elem" field_id="{{ field.id }}">{{ field.title }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="workspace">
+			<div class="title_form">
+				<input type="text" value="Some title">
+			</div>
+
+			<div class="workspace_main">
+				
+			</div>
+
+			<div class="commit_template_block">
+				<button class="save_template">Сохранить</button>		
+
+				<button class="delete_template">Удалить</button>
+			</div>
+		</div>
+	</div>
+
+</main>
+
+
+
+{% endblock %}
