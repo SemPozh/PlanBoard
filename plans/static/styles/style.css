@@ -1,4 +1,11 @@
 /*General_rules*/
+*, *:before, *:after{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 0px;
 	padding: 0px;
@@ -28,18 +35,23 @@ html{
 	height: 100%;
 }
 
+main{
+	flex: 1 1 auto;
+}
 
 .wrap{
 	background: linear-gradient(112.53deg, #344C89 6.72%, #273B6C 89.11%);
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 body {
 	margin: 0;
 	padding: 0;
-	
+	height: 100%;
 	font-family: 'Poppins', sans-serif;
 	color:  #fff;
-	height: 100%;
 	overflow-x: hidden;
 }
 
@@ -59,7 +71,7 @@ ul, li{
 	position: relative;
 	width: 1170px;
 	margin: 0 auto;
-	min-height: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 
@@ -159,7 +171,8 @@ h1.logo-text {
 
 }
 
-.menu_el:nth-child(2), .menu_el:nth-child(3){
+
+.menu_el{
 	margin-top: 5px;
 } 
 
@@ -240,7 +253,7 @@ footer h3.title{
 
 
 /*PAGE "Главная" MAIN*/
-main{
+main.index_main{
 	flex: 1 1 auto;
 }
 
@@ -683,6 +696,7 @@ input.input_text_css {
 	height: 30px;
 	font-size: 20px;
 	border-radius: 8px;
+	border: 2px solid #000000;
 }
 
 input.input_text_css:focus{
@@ -712,6 +726,7 @@ textarea.input_text_css {
 	resize: vertical;
 	font-size: 18px;
 	border-radius: 8px;
+	border: 2px solid #000000;
 }
 
 textarea.input_text_css:focus{
@@ -730,6 +745,7 @@ input.input_number_css {
 	height: 30px;
 	font-size: 20px;
 	border-radius: 8px;
+	border: 2px solid #000000;
 }
 
 input.input_number_css:focus {
@@ -842,10 +858,6 @@ span.text {
 
 
 /*select*/
-.select_wrap {
-	display: inline-block;
-}
-
 select.input_text_css {
 	-moz-appearance: none;
 	-webkit-appearance: none;
@@ -909,6 +921,7 @@ select.input_text_css:focus {
 	margin-right: 30px;
 	padding: 7px 0 7px 5px;
 	border-radius: 8px;
+	border: 2px solid #000000;
 }
 
 .input_date_css:focus {
@@ -927,6 +940,7 @@ select.input_text_css:focus {
 	height: 30px;
 	font-size: 20px;
 	border-radius: 8px;
+	border: 2px solid #000000;
 }
 
 .input_email_css:focus {
@@ -1159,6 +1173,11 @@ body.lock {
 	right: 31px;
 }
 
+.save_changes:hover{
+	box-shadow: 4px 4px 10px rgba(47, 181, 0, 0.6);
+	transition-duration: 0.3s;
+}
+
 .input_label{
 	color: #000;
 	display: block;
@@ -1175,5 +1194,1124 @@ body.lock {
 	margin-bottom: 6px;
 	max-width: 300px;
 	overflow: hidden;
+
+}
+
+
+.my_plans{
+	margin-top: 100px;	
+	margin-bottom: 292px;
+}
+
+.templates_view{
+	display: flex;
+	margin-bottom: 40px;
+}
+
+.templates_view_buttons{
+	display: flex;
+	margin-left: 60px;
+	margin-right: 694px;
+
+}
+
+.add_template-btn{
+	width: 170px;
+	height: 42px;
+	background: #FFC700;
+	border-radius: 10px;
+	text-align: center;
+	filter: drop-shadow(4px 4px 20px rgba(255, 153, 0, 0.25));
+}
+
+.add_template-btn a{
+	line-height: 40px;
+	color: #000;
+	font-size: 20px;
+}
+
+.line_view-btn {
+	width: 42px;
+	height: 42px;
+	background: #FFFFFF;
+	box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	text-align: center;
+	margin-right: 16px;
+}
+
+.choosed{
+	border: 1px solid #000000;
+}
+
+.line_view-btn img {
+	width: 40px;
+	height: 9px;
+	margin-top: 16px;
+}
+
+.grid_view-btn{
+	width: 42px;
+	height: 42px;
+	background: #FFFFFF;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.grid_view-btn img {
+	margin-top: 5px;
+}
+
+/* slider  */
+.template_card_wrap{
+	margin-right: 80px;
+}
+
+.template_card{
+	width: 270px;
+	height: 310px;
+	background: #FFFFFF;
+	border-radius: 14px;
+	position: relative;
+	align-items: center;
+}
+
+.template_card:hover{
+	box-shadow: 5px 20px 40px rgba(0, 0, 0, 0.37);
+	transition-duration: 0.3s;
+}
+
+.my_templates {
+	border-bottom: 4px solid #FFFFFF;
+	padding-bottom: 84px;
+	margin-bottom: 123px;
+}
+
+.choosed_template{
+	border: 5px solid #24FF00;
+}
+
+.show_tmp{
+	position: absolute;
+	top: 0;
+	left: 12px;
+}
+
+.edit_tmp{
+	position: absolute;
+	top: 5px;
+	right: 12px;
+}
+
+.text_emitation{
+	margin: 79px 46px 0 46px;
+}
+
+.template_title{
+	letter-spacing: 0.04em;
+	color: #FFFFFF;
+	font-weight: 500;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+
+/* Ограничивающая оболочка */
+.slick-list {
+	overflow: hidden;
+}
+
+/* Лента слайдов */
+.slick-track{
+	display: flex;
+}
+
+/* slider */
+.slider{
+	position: relative;
+	padding: 0px 60px;
+}
+
+.slider .slick-arrow{
+	position: absolute;
+	top: 50%;
+	z-index: 10;
+	font-size: 0;
+	width: 30px;
+	height: 50px;
+	margin: -50px 0px 0px 0px;
+}
+
+.slider .slick-arrow.slick-prev{
+	left: 0;
+	background: url('../images/svg/previous.svg') 0 0 / 100% no-repeat;
+}
+
+.slider .slick-arrow.slick-next{
+	right: 0;
+	background: url('../images/svg/next.svg') 0 0 / 100% no-repeat;
+}
+
+.slider .slick-arrow.slick-disabled{
+	opacity: 0.2;
+}
+
+.slider .slick-dots{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.slider .slick-dots li{
+	list-style: none;
+	margin: 0 10px;
+}
+
+.slider .slick-dots button{
+	font-size: 0;
+	width: 10px;
+	height: 10px;
+	background-color: #fff;
+	border-radius: 50%;
+}
+
+.slider .slick-dots li.slick-active button{
+	background-color: transparent;
+	border: 1px solid #fff;
+}
+
+
+
+.slider__item{
+
+}
+
+
+/* ------------ */
+
+.pre_list-plans{
+	display: flex;
+	margin-bottom: 148px;
+}
+
+.add_plan{
+	width: 170px;
+	height: 50px;
+	background: #FFC700;
+	box-shadow: 4px 4px 20px rgba(255, 153, 0, 0.25);
+	border-radius: 10px;
+	color: #000000;
+	font-size: 30px;
+	text-align: center;
+	line-height: 50px;
+}
+
+.sort_by{
+	margin-left: 30px;
+	margin-right: 704px;
+	display: inline-block;
+	position: relative;
+}
+
+.sort_by select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 200px;
+	display: block;
+	border: 1px solid black;
+	border-radius: 6px;
+	padding: 14px 35px 10px 15px;
+	background-color: #fff;
+	outline: none;
+	cursor: pointer;
+	font-size: 18px;
+
+}
+
+.sort_by select::-ms-expand {
+	display: none;
+}
+
+.sort_by::before {
+	content: "";
+
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	display: block;
+	pointer-events: none;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10.4px 6px 0 6px;
+	border-color: #000 transparent transparent transparent;
+
+
+}
+
+.plans_list{
+	margin-left: 0px;
+}
+.row{
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.plan_wrapper{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.plan_card{
+	width: 270px;
+	min-height: 150px;
+	background-color: #fff;
+	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	position: relative;
+	/*margin-right: 130px;*/
+	padding-top: 40px;
+	margin-bottom: 20px;
+}
+
+.row .plan_card:last-child{
+	margin-right: 0px;
+}
+
+i.fa-trash-alt {
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	color: black;
+	font-size: 24px;
+}
+
+i.fa-trash-alt:hover{
+	font-size: 28px;
+}
+
+.redact_card_icon{
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+
+.redact_card_icon:hover{
+	width: 35px;
+}
+
+.input_data{
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	color: #000;
+	font-weight: 500;
+	font-size: 20px;
+	min-height: 20px;
+	text-align: center;
+}
+
+.input_data:last-child{
+	border: none;
+}
+
+
+/* working inputs */
+
+/*text*/
+div.input_wrapper {
+	display: block;
+}
+
+input.input_text_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+
+textarea.input_text_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+
+/*number*/
+input.input_number_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+/*select*/
+.select_wrap.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+/*date*/
+.input_date_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+ 
+
+/*email*/
+.input_email_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+
+/*range*/
+.input_range_css.working {
+	width: 600px;
+	margin: 30px 0px;
+}
+
+.input_label.working{
+	margin: 0px 0px -20px 5px;
+}
+
+.edit_tmp:hover{
+	width: 35px;
+}
+
+/*HELP PAGE*/
+
+main.help{
+	margin-top: 80px;
+}
+
+.help_form_label{
+	font-style: normal;
+	font-weight: 500;
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.contact_form_btn{
+	margin-left: 0px;
+}
+
+.email_contact_input{
+	width: 400px;
+	height: 30px;
+	border-radius: 6px;
+	padding: 5px;
+	font-size: 18px;
+	border: 2px solid #fff;
+}
+
+.email_input_wrapper{
+	margin-bottom: 20px;
+}
+
+.email_contact_input:focus{
+	outline: none;
+	border: 2px solid #4AD4FF;
+	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
+}
+
+.message_contact_input{
+	width: 870px;
+	height: 292px;
+	border-radius: 10px;
+	padding: 15px;
+	resize: vertical;
+	font-size: 18px;
+	border: 2px solid #fff;
+}
+
+.message_contact_input:focus{
+	outline: none;
+	border: 2px solid #4AD4FF;
+	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
+}
+
+.help_form_label{
+
+}
+
+.contact_form{
+	margin-bottom: 200px;
+}
+
+
+
+textarea.input_text_css:focus{
+	outline: none;
+	border: 2px solid #4AD4FF;
+	transition-duration: 0.3s;
+	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
+}
+
+
+/*MEDIA*/
+
+@media screen and (max-width: 1300px){
+	/*index*/
+
+
+	.offer_image{
+		display: none;
+	}
+
+	.offer{
+		/*margin-left: 280px;*/
+		display: block;
+		margin-left: 30%;
+	}
+
+	.footer_el h3.title{
+		font-size: 30px;
+
+	}
+
+	.footer_el p{
+		width: 210px;
+	}
+
+	.social_nets .title{
+		width: 390px;
+	}
+
+}
+
+@media screen and (max-width: 1200px){
+	.content{
+		width: 1024px;
+	}
+
+	.logo{
+		margin-right: 100px;
+		margin-left: 15px;
+	}
+
+
+
+	.templates_ex-title{
+		text-align: center;
+	}
+
+	.templates_container{
+		width: 1025px;
+	}
+
+	#t1, #t2{
+		margin-left: 20px;
+	}
+
+	#t3{
+		display: none;
+	}
+
+	#t7, #t8{
+		margin-right: 0px;
+	}
+
+	.quick_start-title{
+		text-align: center;
+	}
+
+	.step_info{
+		margin-left: 20px;
+	}
+
+	.step .step_image{
+		width: 566px;
+	}
+
+
+	.templates_view_buttons{
+		margin-right: 603px;
+	}
+
+	.sort_by{
+		margin-right: 627px;
+	}
+
+	.plan_card{
+		width: 247px;
+	}
+
+	footer{
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.footer_el{
+		margin-bottom: 50px;
+	}
+
+	.register{
+		margin-left: 234px;
+	}
+
+	.info_wrap{
+		width: 1024px;
+	}
+
+}
+
+@media screen and (max-width: 1024px){
+	.content{
+		width: 960px;
+	}
+
+	header{
+		display: block;
+	}
+
+	.logo{
+		margin-left: 30%;
+	}
+
+	.menu{
+		margin-left: 23%;
+	}
+
+	.offer{
+		margin-left: 27%;
+	}
+
+	.templates_container{
+		width: 960px;
+	}
+
+	#t7, #t8{
+		display: none;
+	}
+
+	#t1, #t2{
+		margin-left: 150px;
+	}
+
+	.step_info{
+		margin-left: 40px;
+	}
+
+	.step .step_image{
+		width: 466px;
+	}
+
+	.templates_view_buttons{
+		margin-right: 563px;
+	}
+
+	.sort_by{
+		margin-right: 508px;
+	}
+
+	.plan_card{
+		width: 226px;
+		margin-right: 100px;
+	}
+
+	.template_card_wrap {
+    margin-right: 156px;
+	}
+
+
+	input.input_text_css,
+	textarea.input_text_css,
+	input.input_number_css,
+	div.select_wrap,
+	input.input_date_css,
+	input.input_email_css,
+	input.input_range_css{
+		margin-left: 120px;
+	}
+
+	.register{
+		margin-left: 180px;
+	}
+
+	.info_wrap{
+		width: 960px;
+	}
+
+
+}
+
+@media screen and (max-width: 960px){
+	.content{
+		width: 768px;
+	}
+	.logo{
+		margin-left: 24%;
+	}
+
+	.menu{
+		margin-left: 16%;
+	}
+
+	.templates_container{
+		width: 768px;
+	}
+
+	#t1, #t2{
+		margin-left: 57px;
+	}
+
+	.templates_view_buttons{
+		margin-right: 386px;
+	}
+
+	.sort_by {
+    margin-right: 368px;
+	}
+
+	.plan_card{
+		width: 180px;
+	}
+
+	.template_card_wrap {
+    margin-right: 48px;
+	}
+
+	input.input_text_css,
+	textarea.input_text_css,
+	input.input_number_css,
+	div.select_wrap,
+	input.input_date_css,
+	input.input_email_css,
+	input.input_range_css{
+		margin-left: 93px;
+	}
+
+	.message_contact_input{
+		width: 617px;
+	}
+
+	.about_us {
+    margin-right: 30px;
+	}
+
+	.offer{
+		margin-left: 19%;
+	}
+
+	.register{
+		margin-left: 90px;
+	}
+
+	.info_wrap{
+		width: 768px;
+	}
+
+}
+
+@media screen and (max-width: 768px){
+	.content{
+		width: 425px;
+	}
+
+	h1.logo-text{
+		font-size: 48px;
+	}
+
+	.logo{
+		margin-left: 10%;
+	}
+
+	.menu{
+		margin-left: -8%;
+	}
+
+	.offer{
+		margin-left: 0%;
+	}
+
+	.templates_container{
+		width: 425px;
+	}
+
+	.templates_ex{
+		height: 900px;
+	}
+
+	.templates_blocks{
+		display: block;
+	}
+
+	.template_block{
+
+	}
+
+	#t1, #t2{
+		width: 370px;
+		margin-left: 28px;
+	}
+
+	.sostav{
+		margin-left: 28px;
+	}
+
+	.step_image{
+		display: none;
+	}
+
+	.templates_view_buttons{
+		margin-right: 80px;
+	}
+
+	.grid_view-btn{
+		display: none;
+	}
+
+	.template_card_wrap {
+    margin-right: 23px;
+	}
+
+	.sort_by {
+    margin-right: 5px;
+	}
+
+	.plans_list{
+		margin-left: 100px;
+	}
+
+	.footer_el{
+		margin-left: 23%;
+	}
+
+	.create_tmp{
+		display: block;
+	}
+
+	.input_list ul{
+	}
+
+	.input_list{
+		margin-bottom: 60px;
+		margin-left: 20%;
+	}
+
+	.workspace{
+		margin-left: -10px;
+		width: 435px;
+		padding-bottom: 30px;
+	}
+
+	.popup__content{
+		max-width: 531px;
+	}
+
+	.message_contact_input{
+		width: 386px;	
+	}
+
+
+	.contact_form{
+		text-align: center;
+	}
+
+	footer{
+		margin-left: -70px;
+	}
+
+	.register{
+		width: 400px;
+		margin-left: 11px;
+	}
+
+	form.register-form {
+    width: 100%;
+    text-align: center;
+	}
+
+	.submit_btn{
+		margin-left: 26px;
+	}
+
+	.forgot_pasword__link{
+		margin-left: -124px;
+	}
+
+	.info_wrap{
+		width: 425px;
+	}
+
+
+}
+
+@media screen and (max-width: 425px){
+	.content{
+		width: 375px;
+	}
+
+	.logo{
+		margin-left: 6%;
+	}
+
+	.menu ul{
+		display: block;
+	}
+
+	.menu_el{
+		margin-bottom: 15px;
+	}
+
+	.menu{
+		margin-left: 33%;
+	}
+
+	header{
+		margin-bottom: 230px;
+	}
+
+	.offer h2{
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.offer{
+		width: 375px;
+	}
+
+	.offer-cards{
+		display: block;
+	}
+
+	.offer-card{
+		margin-bottom: 53px;
+		margin-left: 33%;
+		margin-right: 0px;
+
+	}
+
+	.offer_auth .welcome{
+		display: block;
+		margin-right: 0px;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.offer_auth__sign-in{
+		margin-right: 0px;
+		margin-left: 27%;
+	}
+
+	.offer_auth__sign-up{
+		display: block;
+		margin-bottom: 30px;
+		margin-right: 0px;
+		text-align: center;
+		/*margin-left: 10%;*/
+	}
+
+	.templates_container{
+		width: 375px;
+	}
+
+	.templates_ex{
+		margin-top: 810px;
+	}
+
+	#t1, #t2{
+		width: 300px;
+		margin-left: 40px;
+	}
+
+	#t4{
+		width: 300px;
+
+	}
+
+	.sostav{
+		margin-left: 40px;
+	}
+
+	.plan_card {
+    width: 232px;
+	}
+
+	.add_template-btn{
+		width: 121px;
+	}
+
+	.template_card {
+    width: 232px;
+  }
+
+  .text_emitation{
+  	margin-left: 29px;
+  }
+
+  .workspace{
+		margin-left: 0px;
+		width: 390px;
+		padding-bottom: 30px;
+	}
+
+	input.input_text_css,
+	textarea.input_text_css,
+	input.input_number_css,
+	div.select_wrap,
+	input.input_date_css,
+	input.input_email_css,
+	input.input_range_css{
+		margin-left: 69px;
+	}
+
+	i.input_settings{
+		display: none;
+	}
+
+	.message_contact_input{
+		width: 320px;
+	}
+
+	.email_contact_input{
+		width: 340px;
+	}
+
+	.social_nets ul li {
+    margin-right: 22px;
+	}
+
+	.social_nets .title {
+    width: 295px;
+	}
+
+	.register{
+		width: 300px;
+		margin-left: 26px;
+	}
+
+	form.register-form {
+    width: 100%;
+    text-align: center;
+	}
+
+	.submit_btn{
+		margin-left: 51px;
+	}
+
+	.forgot_pasword__link {
+    margin-left: -18px;
+	}
+
+	.info_wrap{
+		width: 320px;
+	}
+
+}
+
+@media screen and (max-width: 375px){
+	.content{
+		width: 320px;
+	}
+
+	.logo{
+		margin-left: -3%;
+	}
+
+	h1.logo-text{
+		font-size: 44px;
+	}
+
+	.logo-img{
+		margin-left: 12px;
+	}
+
+	.offer{
+		width: 320px;
+	}
+
+	.offer h2{
+		font-size: 25px;
+	}
+
+	.templates_ex{
+		margin-top: 900px;
+	}
+
+	.templates_container{
+		width: 320px;
+	}
+
+	.templates_ex-title{
+		font-size: 30px;
+	}
+
+
+	.step{
+		text-align: center;
+		margin-left: -47px;
+		display: block;
+	}
+
+	#t1, #t2, #t4{
+		margin-right: 0px;
+		width: 280px;
+
+	}
+
+	#t1, #t2{
+		margin-left: 25px;
+	}
+
+	.sostav{
+		margin-left: 25px;
+
+	}
+
+	#t6{
+		margin-right: 14px;
+	}
+
+	.template_card {
+    width: 178px;
+	}
+
+	.text_emitation{
+		width: 150px;
+		margin-left: 16px;
+	}
+
+	.workspace{
+		margin-left: -38px;
+	}
+
+	.input_list{
+		margin-left: 7%;
+	}
+
+	.message_contact_input{
+		width: 266px;
+	}
+
+	.email_contact_input{
+		width: 286px;
+	}
+
+	.register{
+		width: 250px;
+		margin-left: 26px;
+	}
+
+	form.register-form {
+    width: 100%;
+    text-align: center;
+	}
+
+	.submit_btn{
+		margin-left: 20px;
+	}
+
+	.sign_in__link{
+		float: none;
+	}
+
+	.forgot_pasword__link{
+		float: none;
+	}
+
+}
+
+@media screen and (max-width: 320px){
 
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Помощь{% endblock %}
+
+{% block content %}
+<main class="help">
+	<div class="contact_form_wrap">
+		<form action="{% url 'help' %}" method="POST" class="contact_form">
+			{% csrf_token %}
+			<h3 class="help_form_label">Обратная связь</h3>
+			<div class="email_input_wrapper">
+				{{ form.email }}	
+			</div>
+			<div class="message_input_wrapper">
+				{{ form.message }}	
+			</div>
+			
+			<button type="submit" class="submit_btn contact_form_btn">Отправить</button>
+		</form>
+	</div>
+</main>
+{% endblock %}

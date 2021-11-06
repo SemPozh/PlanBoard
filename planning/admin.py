@@ -3,11 +3,11 @@ from .models import *
 
 
 class TemplateAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user']
+    list_display = ['id', 'title', 'user']
 
 
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['user', 'template', 'date']
+    list_display = ['id', 'user', 'template', 'date']
 
 
 class FieldAdmin(admin.ModelAdmin):

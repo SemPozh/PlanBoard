@@ -6,9 +6,13 @@ from django.core.mail import send_mail
 import hashlib
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from .models import Field, Template
+from .models import Field, Template, Plan
 from django.http import JsonResponse
 import json
+from datetime import datetime
+from django.http import HttpResponseNotFound
+import numpy as np
+
 
 
 def index(request):
@@ -121,7 +125,7 @@ def change_password(request, id_hash):
     return render(request, 'planning/change_password.html', context={'form': form})
 
 
-def add_template(request):
+def add_template(request,):
     fields = Field.objects.all()
     return render(request, 'planning/add_template.html', context={'fields': fields})
 
@@ -149,11 +153,11 @@ def ajax_add_template(request):
                          f'</div>' \
                          f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
                          f'</div>'
-        elif field_obj.input_name.css_class == 'input_radio_css' or  field_obj.input_name.css_class == 'input_checkbox_css':
+        elif field_obj.input_name.css_class == 'input_radio_css' or field_obj.input_name.css_class == 'input_checkbox_css':
 
-            input_html = f'<div>'\
-                         f'<label class="input_label_for_button" for="name{elem_id}"></label>'\
-                         f'<div class="button_input field_elem" field_id={field_id}>'\
+            input_html = f'<div>' \
+                         f'<label class="input_label_for_button" for="name{elem_id}"></label>' \
+                         f'<div class="button_input field_elem" field_id={field_id}>' \
                          f'<div class="button_wrap" elem_id={elem_id}>' \
                          f'<label class="{field_obj.input_name.css_class}_label">' \
                          f'<input type={field_obj.input_name.title} class="{field_obj.input_name.css_class}" name="name{elem_id}" value="Some option" checked>' \
@@ -167,7 +171,7 @@ def ajax_add_template(request):
                          f'</label>' \
                          f'</div>' \
                          f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
-                         f'</div>'\
+                         f'</div>' \
                          f'</div>'
 
         else:
@@ -203,4 +207,228 @@ def ajax_save_template(request):
 
 
 def my_plans(request):
-    pass
+    user_id = request.user.id
+    user_templates = Template.objects.filter(user_id=user_id)
+    user_plans = Plan.objects.filter(user_id=user_id)
+
+    return render(request, 'planning/my_plans.html',
+                  context={'templates': user_templates, 'first_template': user_templates[0].id, 'user_plans': user_plans})
+
+
+def ajax_add_plan(request):
+    if request.is_ajax():
+        template_id = request.GET.get('template_id')
+        template_data = Template.objects.get(id=template_id)
+        fields = template_data.fields['data']
+        fields_html = []
+        for field in fields:
+            elem_id = field['elem_id']
+            field_object = Field.objects.get(id=field['field_id'])
+            if str(field['field_id']) in ['1', '3', '7', '8', '9']:
+                if str(field['field_id']) == '7':
+                    try:
+                        field['attrs']['default_value'] = datetime.strptime(field['attrs']['default_value'],
+                                                                            '%d.%m.%Y').strftime('%Y-%m-%d')
+                    except:
+                        pass
+
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+
+                field_html = f'<div class="input_wrapper" field_id={field["field_id"]}>' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<input type="{field_object.input_name.title}" class="{field_object.input_name.css_class} field_elem working" field_id={field["field_id"]} name="name{elem_id}" style="height:{field["attrs"]["height"]}px" max="{field["attrs"]["maxvalue"]}" min="{field["attrs"]["minvalue"]}" maxlength="{field["attrs"]["maxlength"]}" value="{field["attrs"]["default_value"]}" {is_required}>' \
+                             f'</div>'
+            elif str(field['field_id']) == '2':
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+                field_html = f'<div class="textarea_wrapper" field_id={field["field_id"]}>' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<textarea class="{field_object.input_name.css_class} field_elem working" name="name{elem_id}" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px" maxlength="{field["attrs"]["maxlength"]}" {is_required}>{field["attrs"]["default_value"]}</textarea>' \
+                             f'</div>'
+            elif str(field['field_id']) in ['4', '5']:
+
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+
+                all_options = ''
+                for option in field['attrs']['options']:
+                    if option == field['attrs']['default_value']:
+                        is_checked = 'checked'
+                    else:
+                        is_checked = ''
+                    all_options = all_options + f'<label class="{field_object.input_name.css_class}_label">' \
+                                                f'<input type={field_object.input_name.title} class="{field_object.input_name.css_class} working" name="name{elem_id}" value="{option}" {is_checked}>' \
+                                                f'<span class="{field_object.input_name.css_class}_fake"></span>' \
+                                                f'<span class="text">{option}</span>' \
+                                                f'</label>'
+                field_html = f'<div field_id={field["field_id"]}>' \
+                             f'<label class="input_label_for_button working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<div class="button_input field_elem" field_id={field["field_id"]}>' \
+                             f'<div class="button_wrap" elem_id={elem_id}>' \
+                             f'{all_options}' \
+                             f'</div>' \
+                             f'</div>' \
+                             f'</div>'
+            elif str(field['field_id']) == '6':
+                all_options = ''
+                for option in field['attrs']['options']:
+                    if option == field['attrs']['default_value']:
+                        is_selected = 'selected'
+                    else:
+                        is_selected = ''
+                    all_options = all_options + f'<option value="{option}" class="select_option" {is_selected}>{option}</option>'
+                field_html = f'<div class="select_wrapper" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px">' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<div class="select_wrap working">' \
+                             f'<select class="{field_object.input_name.css_class} field_elem" field_id={field["field_id"]}>' \
+                             f'{all_options}' \
+                             f'</select>' \
+                             f'</div>' \
+                             f'</div>'
+            else:
+                field_html = ''
+
+            fields_html.append(field_html)
+
+        return JsonResponse({'data': fields_html})
+
+
+def ajax_create_plan(request):
+    if request.is_ajax():
+        user_id = request.user.id
+        data = json.loads(request.POST.get('data'))
+        template_id = json.loads(request.POST.get('template_id'))
+
+        plan_obj = Plan.objects.create(user_id=user_id, template_id=template_id, data=data)
+        plan = plan_obj.data
+        count = Plan.objects.filter(template_id=template_id).count()
+
+        return JsonResponse({'plan': plan, 'count': count, 'plan_id': plan_obj.id})
+
+
+def api_get_plans_by_template_id(request):
+    if request.is_ajax():
+        template_id = request.GET.get('template_id')
+        fields = Template.objects.get(id=template_id).fields
+        plans = Plan.objects.filter(template_id=template_id)
+        data = []
+        for plan in plans:
+            data.append([plan.id, plan.data])
+        return JsonResponse({'data': data, 'fields': fields})
+
+
+def api_get_plan_data(request):
+    if request.is_ajax():
+        plan_id = request.GET.get('plan_id')
+        plan_obj = Plan.objects.get(id=plan_id)
+        plan_data = plan_obj.data["plan_data"]
+        template = plan_obj.template
+        fields = template.fields['data']
+        fields_html = []
+        for field in fields:
+            elem_id = field['elem_id']
+            field_object = Field.objects.get(id=field['field_id'])
+            if str(field['field_id']) in ['1', '3', '7', '8', '9']:
+                if str(field['field_id']) == '7':
+                    try:
+                        field['attrs']['default_value'] = datetime.strptime(field['attrs']['default_value'],
+                                                                            '%d.%m.%Y').strftime('%Y-%m-%d')
+                    except:
+                        pass
+
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+
+                field_html = f'<div class="input_wrapper" field_id={field["field_id"]}>' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<input type="{field_object.input_name.title}" class="{field_object.input_name.css_class} field_elem working" field_id={field["field_id"]} name="name{elem_id}" style="height:{field["attrs"]["height"]}px" max="{field["attrs"]["maxvalue"]}" min="{field["attrs"]["minvalue"]}" maxlength="{field["attrs"]["maxlength"]}" value="{plan_data["field" + elem_id]}" {is_required}>' \
+                             f'</div>'
+            elif str(field['field_id']) == '2':
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+                field_html = f'<div class="textarea_wrapper" field_id={field["field_id"]}>' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<textarea class="{field_object.input_name.css_class} field_elem working" name="name{elem_id}" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px" maxlength="{field["attrs"]["maxlength"]}" {is_required}>{plan_data["field" + elem_id]}</textarea>' \
+                             f'</div>'
+            elif str(field['field_id']) in ['4', '5']:
+
+                if str(field['attrs']['canBeBlank']) == '0':
+                    is_required = 'required'
+                else:
+                    is_required = ''
+
+                all_options = ''
+                for option in field['attrs']['options']:
+                    if option == plan_data['field' + elem_id] or option in plan_data['field' + elem_id]:
+                        is_checked = 'checked'
+                    else:
+                        is_checked = ''
+                    all_options = all_options + f'<label class="{field_object.input_name.css_class}_label">' \
+                                                f'<input type={field_object.input_name.title} class="{field_object.input_name.css_class} working" name="name{elem_id}" value="{option}" {is_checked}>' \
+                                                f'<span class="{field_object.input_name.css_class}_fake"></span>' \
+                                                f'<span class="text">{option}</span>' \
+                                                f'</label>'
+                field_html = f'<div field_id={field["field_id"]}>' \
+                             f'<label class="input_label_for_button working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<div class="button_input field_elem" field_id={field["field_id"]}>' \
+                             f'<div class="button_wrap" elem_id={elem_id}>' \
+                             f'{all_options}' \
+                             f'</div>' \
+                             f'</div>' \
+                             f'</div>'
+            elif str(field['field_id']) == '6':
+                all_options = ''
+                for option in field['attrs']['options']:
+                    if option == plan_data['field' + elem_id]:
+                        is_selected = 'selected'
+                    else:
+                        is_selected = ''
+                    all_options = all_options + f'<option value="{option}" class="select_option" {is_selected}>{option}</option>'
+                field_html = f'<div class="select_wrapper" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px">' \
+                             f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
+                             f'<div class="select_wrap working">' \
+                             f'<select class="{field_object.input_name.css_class} field_elem" field_id={field["field_id"]}>' \
+                             f'{all_options}' \
+                             f'</select>' \
+                             f'</div>' \
+                             f'</div>'
+            else:
+                field_html = ''
+
+            fields_html.append(field_html)
+        return JsonResponse({'plan_data': plan_data, 'fields_html': fields_html})
+
+
+def ajax_redact_plan(request):
+    if request.is_ajax():
+        plan_id = request.POST.get('plan_id')
+        plan = Plan.objects.get(id=plan_id)
+        plan.data = json.loads(request.POST.get('data'))
+        plan.save()
+        return JsonResponse({'data': plan.data})
+
+
+def help_page(request):
+    if request.method == 'POST':
+        form = HelpForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            final_message = message + f'\n From: {email}'
+
+            send_mail('Questions and wishes', final_message, 'SemPozh@mail.ru', ['SemPozh@mail.ru'], fail_silently=True)
+
+    else:
+        form = HelpForm()
+    return render(request, 'planning/help.html', {'form': form})

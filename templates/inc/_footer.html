@@ -1,13 +1,13 @@
 {% load static %}
 <footer>
-    <div class="about_us">
+    <div class="about_us footer_el">
         <h3 class="title">О нас</h3>
 
         <p class="about_us-text">Plan Board - это мощный инструмент для планирования различных сфер жизни. Разработан в
             сентябре 2021 года Семёном Пожарским. &#169; Все права защищены</p>
     </div>
 
-    <div class="social_nets">
+    <div class="social_nets footer_el">
         <h3 class="title">Социальные сети</h3>
 
         <ul>
@@ -18,13 +18,13 @@
         </ul>
     </div>
 
-    <div class="footer_navigation">
+    <div class="footer_navigation footer_el">
         <h3 class="title">Навигация</h3>
 
         <ul>
             <li><a href="{% url 'index' %}" class="footer_nav_active">Главная</a></li>
-            <li><a href="">Мои планы</a></li>
-            <li><a href="">Помощь</a></li>
+            <li><a href="{% url 'my-plans' %}">Мои планы</a></li>
+            <li><a href="{% url 'help' %}">Помощь</a></li>
         </ul>
     </div>
 </footer>

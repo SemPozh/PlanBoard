@@ -1,10 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load planning_tags %}
+{% block title %}Мои планы{% endblock %}
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+<main class="my_plans">
+    <div class="my_templates">
+     <div class="templates_view">
+        <div class="templates_view_buttons">
+           <div class="line_view-btn tmp-view choosed" list_style="slider">
+                <img src="{% static 'images/svg/show_slide_logo.svg'%}" alt="">
+            </div>
+            <div class="grid_view-btn tmp-view" list_style="grid">
+                <img src="{% static 'images/svg/grid_icon.svg'%}" alt="">
+            </div>
+        </div>
+
+      <div class="add_template-btn"><a href="{% url 'add_template' %}">Добавить</a></div>
+    </div>
+
+  <div class="templates_list">
+        <div class="slider">
+            {% for template in templates %}
+            <div class="slider__item">
+                <div class="template_card_wrap">
+                    <div class="template_card" template_id="{{ template.id }}">
+                        <img src="{% static 'images/svg/edit.svg' %}" alt="" class="edit_tmp">
+
+                        <img src="{% static 'images/img/text_emitation.png' %}" alt="" class="text_emitation">
+                    </div>
+                    <div class="template_title">{{ template.title }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="plans_by_template">
+    <div class="pre_list-plans">
+        <div class="sort_by">
+            <select name="" id="" value="Сортировать по" class="sort_by_select">
+                <option value="default">Сортировать по</option>
+                {% for field in templates.0.fields.data %}
+                    <option value="{{ forloop.counter }}">field {{ forloop.counter }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <a class="add_plan popup-link" href="#popup1">+</a>
+    </div>
+
+    <div class="plans_list">
+        {% plans_by_template first_template %}
+    </div>
+</div>
+
+{% for template in templates %}
+<div id="popup{{ template.id }}" class="popup">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close close-popup">X</a>
+            <div class="popup__main">
+                <form class="main_form" action="#" method="POST" template_id="{{ template.id }}">
+
+
+                    <button type="submit" class="save_changes">Сохранить</button>    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for plan in user_plans %}
+    
+<div id="redact-popup{{ plan.id }}" class="popup">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close close-popup">X</a>
+            <div class="popup__main">
+                <form class="main_form" action="#" method="POST" template_id="{{ template.id }}">
+                    {% csrf_token %}
+
+                    <button type="submit" class="save_changes">Сохранить</button>    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+</main>
+
+{% endblock %}

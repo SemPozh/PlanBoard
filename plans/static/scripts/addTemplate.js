@@ -128,6 +128,7 @@ function add_input() {
 					const body = document.querySelector('body');
 					const lockPadding = document.querySelectorAll('.lock-padding');
 
+
 					let unlock = true;
 
 					const timeout = 800;
@@ -307,8 +308,8 @@ function add_input() {
 					
 
 					let input_settings_data_def = {
-						'field_id': elem_id,
-						'elem_id': field_id,
+						'elem_id': elem_id,
+						'field_id': field_id,
 						'attrs': {
 							'label': '',
 							'default_value': '',
@@ -525,7 +526,7 @@ function add_input() {
 					'template_title': title_val
 				},
 				success: (data) =>{
-					window.location.replace("http://127.0.0.1:8000/my-plans");
+					window.location.replace("http://127.0.0.1:8000/my-plans/");
 					
 
 				}

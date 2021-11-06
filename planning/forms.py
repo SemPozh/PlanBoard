@@ -38,4 +38,9 @@ class ChangePasswordForm(forms.Form):
     password2 = forms.CharField(label="Подтверждение пароля", widget=forms.PasswordInput(attrs={'placeholder': 'Подтверждение пароля'}))
 
 
+class HelpForm(forms.Form):
+    email = forms.EmailField(label="Ваша почта", widget=forms.EmailInput(attrs={'placeholder': 'Почта', 'class': 'email_contact_input'}))
+    message = forms.CharField(label="Обратная связь", widget=forms.Textarea(attrs={'placeholder': 'Ваш вопрос', 'class': 'message_contact_input'}))
+
+
 
