@@ -1,0 +1,68 @@
+{% for field in data %}
+<div id="popup{{ field.elem_id }}" class="popup">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close close-popup">X</a>
+            <div class="popup__title">Поле {{ field.elem_id }}</div>
+
+            <div class="popup__main">
+                <div class="tabs">
+                    <div class="tab current" id="names_tab">Названия</div>
+
+                    <div class="tab" id="properties_tab">Свойства</div>
+
+                    <div class="tab" id="sizes_tab">Размеры</div>
+
+                    <div class="tab" id="content_tab">Наполнение</div>
+
+                </div>
+
+                <div class="main_form">
+                    <form action="" method="post" class="input_settings_form" elem_id="{{ field.elem_id }}" field_id="{{ field.field_id }}">
+                        {% csrf_token %}
+                        <div class="modal_settings__input names_tab">
+                            <span>Подсказка</span><input type="text" value="{{ field.attrs.label }}" name="input_label">
+                        </div>
+
+                        <div class="modal_settings__input names_tab">
+                            <span>Начальное значение</span><input type="text" name="input_default" value="{{ field.attrs.default_value }}">
+                        </div>
+
+                        <div class="modal_settings__input properties_tab">
+                            <span>Максимальная длина</span><input type="number" name="input_maxlength" value="{{ field.attrs.maxlength }}">
+                        </div>
+
+                        <div class="modal_settings__input properties_tab">
+                            <span>Максимальное значение</span><input type="number" name="input_maxvalue" value="{{ field.attrs.maxvalue }}">
+                        </div>
+
+                        <div class="modal_settings__input properties_tab">
+                            <span>Минимальное значение</span><input type="number" name="input_minvalue" value="{{ field.attrs.minvalue }}">
+                        </div>
+
+                        <div class="modal_settings__input properties_tab">
+                            <span>Может быть пустым</span>
+                            Да<input type="radio" name="can_blank" value="1">
+                            Нет<input type="radio" name="can_blank" value="0" checked>
+                        </div>
+                        <div class="modal_settings__input sizes_tab">
+                            <span>Высота поля в пикселях</span><input type="number" name="input_height" value="{{ field.attrs.height }}">
+                        </div>
+                        <div class="modal_settings__input content_tab">
+                            <span class="choose_options__span">Варианты выбора</span>
+                            <div>
+                                {% for option in field.attrs.options %}
+                                <input type="text" value="{{option}}" class="choose_options__input"
+                                       name="input_option">
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="add_option__btn" elem_id="{{ field.elem_id }}" field_id="{{ field.field_id }}">+</button>
+                        </div>
+                        <button type="submit" class="save_changes">СОХРАНИТЬ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

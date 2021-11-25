@@ -1,5 +1,5 @@
 from django.test import TestCase
-from planning.forms import UserRegisterForm, UserLoginForm, ResetPasswordForm, ChangePasswordForm
+from planning.forms import UserRegisterForm, UserLoginForm, ResetPasswordForm, ChangePasswordForm, HelpForm
 
 
 class UserRegisterFormTest(TestCase):
@@ -80,6 +80,25 @@ class ChangePasswordFormTest(TestCase):
     def test_change_password_form_password2_placeholder(self):
         form = ChangePasswordForm()
         self.assertEqual(form.fields['password2'].widget.attrs['placeholder'], 'Подтверждение пароля')
+
+
+class HelpFormTest(TestCase):
+    def test_help_form_email_label(self):
+        form = HelpForm()
+        self.assertTrue(form.fields['email'].label is None or form.fields['email'].label == 'Ваша почта')
+
+    def test_help_form_email_placeholder(self):
+        form = HelpForm()
+        self.assertEqual(form.fields['email'].widget.attrs['placeholder'], 'Почта')
+
+    def test_help_form_message_label(self):
+        form = HelpForm()
+        self.assertTrue(form.fields['message'].label is None or form.fields['message'].label == 'Обратная связь')
+
+    def test_help_form_message_placeholder(self):
+        form = HelpForm()
+        self.assertEqual(form.fields['message'].widget.attrs['placeholder'], 'Ваш вопрос')
+
 
 
 

@@ -26,6 +26,18 @@ def register(request):
         if form.is_valid():
             # create and login new user
             user = form.save()
+            # Create default template!!!
+            def_template_data = {"data": [{"attrs": {"label": "ФИО", "height": "",
+                                                     "options": ["Some option", "Another option"], "maxvalue": "",
+                                                     "minvalue": "", "maxlength": "", "canBeBlank": "0",
+                                                     "default_value": "Unnamed"}, "elem_id": 1, "field_id": "1"},{
+                                              "attrs": {"label": "День рождения", "height": "",
+                                                        "options": ["Some option", "Another option"], "maxvalue": "",
+                                                        "minvalue": "", "maxlength": "", "canBeBlank": "1",
+                                                        "default_value": ""}, "elem_id": 2, "field_id": "7"}]}
+            template_title = 'Дни рождения'
+            Template.objects.create(user=user, title=template_title, fields=def_template_data)
+
             login(request, user)
             messages.success(request, 'Вы успешно зарегистрировались!')
             return redirect('index')
@@ -125,9 +137,37 @@ def change_password(request, id_hash):
     return render(request, 'planning/change_password.html', context={'form': form})
 
 
-def add_template(request,):
-    fields = Field.objects.all()
-    return render(request, 'planning/add_template.html', context={'fields': fields})
+def add_template(request):
+    if request.user.is_authenticated:
+        fields = Field.objects.all()
+        template_title = 'Untitled'
+        return render(request, 'planning/add_template.html', context={'fields': fields, 'template_title': template_title})
+    else:
+        return redirect('login')
+
+
+def api_get_template_data(request):
+    if request.is_ajax():
+        template_id = request.GET.get('template_id')
+        template = Template.objects.get(id=template_id)
+        template_data = template.fields
+        return JsonResponse(template_data)
+    else:
+        return HttpResponseNotFound('Page Not Found')
+
+
+def ajax_redact_template(request):
+    if request.is_ajax():
+        template_data = json.loads(request.POST['data'])['template_data']
+        title = json.loads(request.POST['data'])['template_title']
+        template_id = request.POST['template_id']
+        template = Template.objects.get(id=template_id)
+        template.title = title
+        template.fields = template_data
+        template.save()
+        return JsonResponse({'data': []})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def ajax_add_template(request):
@@ -141,6 +181,7 @@ def ajax_add_template(request):
                          f'<label class="input_label" for="name{elem_id}"></label>' \
                          f'<textarea class="{field_obj.input_name.css_class} field_elem" name="name{elem_id}" field_id={field_id}></textarea>' \
                          f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'<i class="fas fa-trash delete_input" elem_id={elem_id} field_id={field_id}></i>'\
                          f'</div>'
         elif field_obj.title == 'Поле с выбором':
             input_html = f'<div class="select_wrapper">' \
@@ -152,6 +193,7 @@ def ajax_add_template(request):
                          f'</select>' \
                          f'</div>' \
                          f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'<i class="fas fa-trash delete_input" elem_id={elem_id} field_id={field_id}></i>'\
                          f'</div>'
         elif field_obj.input_name.css_class == 'input_radio_css' or field_obj.input_name.css_class == 'input_checkbox_css':
 
@@ -170,7 +212,8 @@ def ajax_add_template(request):
                          f'<span class="text">Another option</span>' \
                          f'</label>' \
                          f'</div>' \
-                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>'\
+                         f'<i class="fas fa-trash delete_input" elem_id={elem_id} field_id={field_id}></i>'\
                          f'</div>' \
                          f'</div>'
 
@@ -179,6 +222,7 @@ def ajax_add_template(request):
                          f'<label class="input_label" for="name{elem_id}"></label>' \
                          f'<input type="{field_obj.input_name.title}" class="{field_obj.input_name.css_class} field_elem" name="name{elem_id}" field_id={field_id}>' \
                          f'<a href="#popup{elem_id}" class="popup-link"><i class="fas fa-sliders-h input_settings" field_id={field_id}></i></a>' \
+                         f'<i class="fas fa-trash delete_input" elem_id={elem_id} field_id={field_id}></i>'\
                          f'</div>'
 
         data = {
@@ -187,11 +231,15 @@ def ajax_add_template(request):
         }
 
         return JsonResponse(data)
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def ajax_save_input_settings(request):
     if request.is_ajax():
         return JsonResponse({'data': 1})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def ajax_save_template(request):
@@ -204,15 +252,45 @@ def ajax_save_template(request):
         Template.objects.create(user_id=user.id, title=template_title, fields=template_data)
 
         return JsonResponse({'data': 1})
+    else:
+        return HttpResponseNotFound('Page not found')
 
 
+def redact_template(request, template_id):
+    if request.user.is_authenticated:
+        template = Template.objects.get(id=template_id)
+        data = template.fields
+        fields = Field.objects.all()
+        template_title = template.title
+
+        return render(request, 'planning/add_template.html', context={'fields': fields, 'data': data, 'template_id': template_id, 'template_title': template_title})
+    else:
+        return redirect('login')
+
+
+def ajax_delete_template(request):
+    if request.is_ajax():
+        template_id = request.POST.get('template_id')
+
+        template = Template.objects.get(id=template_id)
+        template.delete()
+
+        return JsonResponse({'data': 1})
+    else:
+        return HttpResponseNotFound('Page not found')
+
+
+# My plans
 def my_plans(request):
-    user_id = request.user.id
-    user_templates = Template.objects.filter(user_id=user_id)
-    user_plans = Plan.objects.filter(user_id=user_id)
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        user_templates = Template.objects.filter(user_id=user_id)
+        user_plans = Plan.objects.filter(user_id=user_id)
 
-    return render(request, 'planning/my_plans.html',
-                  context={'templates': user_templates, 'first_template': user_templates[0].id, 'user_plans': user_plans})
+        return render(request, 'planning/my_plans.html',
+                      context={'templates': user_templates, 'first_template': user_templates[0].id, 'user_plans': user_plans})
+    else:
+        return redirect('login')
 
 
 def ajax_add_plan(request):
@@ -298,6 +376,8 @@ def ajax_add_plan(request):
             fields_html.append(field_html)
 
         return JsonResponse({'data': fields_html})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def ajax_create_plan(request):
@@ -309,8 +389,9 @@ def ajax_create_plan(request):
         plan_obj = Plan.objects.create(user_id=user_id, template_id=template_id, data=data)
         plan = plan_obj.data
         count = Plan.objects.filter(template_id=template_id).count()
-
         return JsonResponse({'plan': plan, 'count': count, 'plan_id': plan_obj.id})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def api_get_plans_by_template_id(request):
@@ -322,6 +403,8 @@ def api_get_plans_by_template_id(request):
         for plan in plans:
             data.append([plan.id, plan.data])
         return JsonResponse({'data': data, 'fields': fields})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def api_get_plan_data(request):
@@ -350,7 +433,7 @@ def api_get_plan_data(request):
 
                 field_html = f'<div class="input_wrapper" field_id={field["field_id"]}>' \
                              f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
-                             f'<input type="{field_object.input_name.title}" class="{field_object.input_name.css_class} field_elem working" field_id={field["field_id"]} name="name{elem_id}" style="height:{field["attrs"]["height"]}px" max="{field["attrs"]["maxvalue"]}" min="{field["attrs"]["minvalue"]}" maxlength="{field["attrs"]["maxlength"]}" value="{plan_data["field" + elem_id]}" {is_required}>' \
+                             f'<input type="{field_object.input_name.title}" class="{field_object.input_name.css_class} field_elem working" field_id={field["field_id"]} name="name{elem_id}" style="height:{field["attrs"]["height"]}px" max="{field["attrs"]["maxvalue"]}" min="{field["attrs"]["minvalue"]}" maxlength="{field["attrs"]["maxlength"]}" value="{plan_data["field" + str(elem_id)]}" {is_required}>' \
                              f'</div>'
             elif str(field['field_id']) == '2':
                 if str(field['attrs']['canBeBlank']) == '0':
@@ -359,7 +442,7 @@ def api_get_plan_data(request):
                     is_required = ''
                 field_html = f'<div class="textarea_wrapper" field_id={field["field_id"]}>' \
                              f'<label class="input_label working" for="name{elem_id}">{field["attrs"]["label"]}</label>' \
-                             f'<textarea class="{field_object.input_name.css_class} field_elem working" name="name{elem_id}" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px" maxlength="{field["attrs"]["maxlength"]}" {is_required}>{plan_data["field" + elem_id]}</textarea>' \
+                             f'<textarea class="{field_object.input_name.css_class} field_elem working" name="name{elem_id}" field_id={field["field_id"]} style="height:{field["attrs"]["height"]}px" maxlength="{field["attrs"]["maxlength"]}" {is_required}>{plan_data["field" + str(elem_id)]}</textarea>' \
                              f'</div>'
             elif str(field['field_id']) in ['4', '5']:
 
@@ -390,7 +473,7 @@ def api_get_plan_data(request):
             elif str(field['field_id']) == '6':
                 all_options = ''
                 for option in field['attrs']['options']:
-                    if option == plan_data['field' + elem_id]:
+                    if option == plan_data['field' + str(elem_id)]:
                         is_selected = 'selected'
                     else:
                         is_selected = ''
@@ -408,6 +491,8 @@ def api_get_plan_data(request):
 
             fields_html.append(field_html)
         return JsonResponse({'plan_data': plan_data, 'fields_html': fields_html})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def ajax_redact_plan(request):
@@ -417,6 +502,19 @@ def ajax_redact_plan(request):
         plan.data = json.loads(request.POST.get('data'))
         plan.save()
         return JsonResponse({'data': plan.data})
+    else:
+        return HttpResponseNotFound('Page Not Found')
+
+
+def ajax_delete_plan(request):
+    if request.is_ajax():
+        plan_id = request.POST.get('plan_id')
+        plan = Plan.objects.get(id=plan_id)
+        plan.delete()
+
+        return JsonResponse({'data': 'success'})
+    else:
+        return HttpResponseNotFound('Page Not Found')
 
 
 def help_page(request):
@@ -428,7 +526,8 @@ def help_page(request):
             final_message = message + f'\n From: {email}'
 
             send_mail('Questions and wishes', final_message, 'SemPozh@mail.ru', ['SemPozh@mail.ru'], fail_silently=True)
-
+            messages.success(request, 'Ваше письмо успешно отправлено!')
+            return redirect('index')
     else:
         form = HelpForm()
     return render(request, 'planning/help.html', {'form': form})

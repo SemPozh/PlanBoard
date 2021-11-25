@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 class Template(models.Model):
     """
@@ -13,6 +13,7 @@ class Template(models.Model):
     title = models.CharField(max_length=150, verbose_name='Название', default='Untitled')
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     fields = models.JSONField(verbose_name="Поля")
+
 
     # fields: [{
     #   field_id: 1,

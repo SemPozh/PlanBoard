@@ -25,7 +25,7 @@
             <div class="slider__item">
                 <div class="template_card_wrap">
                     <div class="template_card" template_id="{{ template.id }}">
-                        <img src="{% static 'images/svg/edit.svg' %}" alt="" class="edit_tmp">
+                        <a href="{% url 'redact_template' template.id %}" class="redact_template__link"><img src="{% static 'images/svg/edit.svg' %}" alt="" class="edit_tmp"></a>
 
                         <img src="{% static 'images/img/text_emitation.png' %}" alt="" class="text_emitation">
                     </div>
@@ -80,7 +80,7 @@
         <div class="popup__content">
             <a href="#" class="popup__close close-popup">X</a>
             <div class="popup__main">
-                <form class="main_form" action="#" method="POST" template_id="{{ template.id }}">
+                <form class="main_form" action="#" method="POST" plan_id="{{ plan.id }}" template_id="{{plan.temlate.id}}">
                     {% csrf_token %}
 
                     <button type="submit" class="save_changes">Сохранить</button>    

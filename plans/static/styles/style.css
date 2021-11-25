@@ -713,8 +713,32 @@ div.textarea_wrapper {
 }
 
 .textarea_wrapper i{
+/*	position: absolute;
+	top: 20px;*/
+}
+
+i.fa-trash.delete_input{
+	position: inherit;
+	margin-left: 10px;
+	color: #000;
+	font-size: 23px;
+}
+
+.button_input i.fa-trash.delete_input{
 	position: absolute;
 	top: 0;
+	left: 275px;
+}
+
+.textarea_wrapper i.fa-trash.delete_input{
+	position: absolute;
+	top: 10px;
+	left: 720px;
+}
+
+i.fa-trash.delete_input:hover{
+	font-size: 25px;
+	transition-duration: 0.2s;
 }
 
 textarea.input_text_css {
@@ -929,6 +953,12 @@ select.input_text_css:focus {
 	border: 2px solid #4AD4FF;
 	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
 	transition-duration: 0.3s;
+}
+
+.input_elem:hover{
+	filter: drop-shadow(5px 20px 40px rgba(0, 0, 0, 0.37));
+	transition-duration: 0.3s;
+	cursor: pointer;
 }
 
 /*email*/
@@ -2134,6 +2164,7 @@ textarea.input_text_css:focus{
 
 	.template_card {
     width: 232px;
+    po
   }
 
   .text_emitation{
@@ -2312,6 +2343,4 @@ textarea.input_text_css:focus{
 
 }
 
-@media screen and (max-width: 320px){
 
-}

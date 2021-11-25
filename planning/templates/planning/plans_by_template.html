@@ -1,26 +1,7 @@
 {% load static %}
-<!--{% if plans %}-->
-<!--<div class="row">-->
-<!--    {% for plan in plans %}-->
-<!--    <div class="plan_card" plan_id="{{ plan.id }}">-->
-<!--        <i class="fas fa-trash-alt"></i>-->
-<!--        <a href="#redact-popup{{ plan.id }}" class="popup-link redact-plan"><img src="{% static 'images/svg/pencil.svg' %}" alt="" class="redact_card_icon"></a>-->
-<!--        {% for key, value in plan.data.plan_data.items %}-->
-<!--            <div class="input_data">-->
-<!--                {{ value }}-->
-<!--            </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-<!--        {% if forloop.counter|divisibleby:"3" %}-->
-<!--</div>-->
-<!--<div class="row">-->
-<!--        {% endif %}-->
-<!--    {% endfor %}-->
-<!--</div>-->
-<!--{% endif %}-->
-
+<div class="plan_wrapper">
 {% if plans %}
-    <div class="plan_wrapper">
+
         {% for plan in plans %}
             <div class="plan_card" plan_id="{{ plan.id }}">
                 <i class="fas fa-trash-alt"></i>
@@ -32,5 +13,6 @@
                 {% endfor %}
             </div>
         {% endfor %}
-    </div>
+
 {% endif %}
+</div>
