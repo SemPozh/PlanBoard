@@ -8,12 +8,12 @@
     <div class="my_templates">
      <div class="templates_view">
         <div class="templates_view_buttons">
-           <div class="line_view-btn tmp-view choosed" list_style="slider">
-                <img src="{% static 'images/svg/show_slide_logo.svg'%}" alt="">
-            </div>
-            <div class="grid_view-btn tmp-view" list_style="grid">
-                <img src="{% static 'images/svg/grid_icon.svg'%}" alt="">
-            </div>
+<!--           <div class="line_view-btn tmp-view choosed" list_style="slider">-->
+<!--                <img src="{% static 'images/svg/show_slide_logo.svg'%}" alt="">-->
+<!--            </div>-->
+<!--            <div class="grid_view-btn tmp-view" list_style="grid">-->
+<!--                <img src="{% static 'images/svg/grid_icon.svg'%}" alt="">-->
+<!--            </div>-->
         </div>
 
       <div class="add_template-btn"><a href="{% url 'add_template' %}">Добавить</a></div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="plans_list">
-        {% plans_by_template first_template %}
+        {% plans_by_template templates %}
     </div>
 </div>
 
@@ -96,3 +96,4 @@
 </main>
 
 {% endblock %}
+

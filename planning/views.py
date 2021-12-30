@@ -288,7 +288,8 @@ def my_plans(request):
         user_plans = Plan.objects.filter(user_id=user_id)
 
         return render(request, 'planning/my_plans.html',
-                      context={'templates': user_templates, 'first_template': user_templates[0].id, 'user_plans': user_plans})
+                      # context={'templates': user_templates, 'first_template': user_templates[0].id, 'user_plans': user_plans}
+                      context={'templates': user_templates, 'user_plans': user_plans})
     else:
         return redirect('login')
 

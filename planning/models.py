@@ -62,7 +62,7 @@ class Plan(models.Model):
         Structure of Json below model fields
     """
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    template = models.ForeignKey(Template, verbose_name="Шаблон", on_delete=models.PROTECT)
+    template = models.ForeignKey(Template, verbose_name="Шаблон", on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True, verbose_name='Дата')
     data = models.JSONField(verbose_name="Данные")
 

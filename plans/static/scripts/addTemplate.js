@@ -1,3 +1,4 @@
+// new
 function csrf() {
 	function getCookie(name) {
 		var cookieValue = null;

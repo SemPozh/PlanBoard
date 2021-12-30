@@ -145,7 +145,11 @@ function popupClose(popupActive, unlock, doUnlock=true) {
 function choose_template(){
 	var all_templates = $('.template_card');
 	var current_template = $(all_templates[0]);
-	$(all_templates[0]).addClass('choosed_template');
+	if (all_templates.length > 0){
+		$(all_templates[0]).addClass('choosed_template');
+	} else {
+		$('.add_plan').css('display', 'none');
+	}
 
 	$('.template_card').each((index, el)=>{
 		$(el).on('click', (e)=>{

@@ -6,13 +6,14 @@ register = template.Library()
 
 
 @register.inclusion_tag('planning/plans_by_template.html')
-def plans_by_template(template_id):
-    plans = Plan.objects.filter(template_id=template_id)
-    if not plans:
-        return {'plans': []}
-    else:
-        data_length = len(plans[0].data['plan_data'])
-        return {'plans': plans}
+def plans_by_template(templates):
+    if templates:
+        plans = Plan.objects.filter(template_id=templates[0].id)
+        if not plans:
+            return {'plans': []}
+        else:
+            # data_length = len(plans[0].data['plan_data'])
+            return {'plans': plans}
 
 
 @register.inclusion_tag('planning/input_generation.html')

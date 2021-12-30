@@ -162,11 +162,11 @@ h1.logo-text {
 	border-bottom: 1px solid #fff;
 	display: inline-block;
 	line-height: 34px;
-	margin-top: 5px;
+	margin-top: 0px;
 }
 
 .menu {
-	margin-top: 5px;
+	margin-top: 17px;
 	white-space: nowrap;
 
 }
@@ -398,12 +398,12 @@ main.index_main{
 
 #t5 {
 	width: 101px;
-	height: 137px;
+	height: 144px;
 }
 
 #t6 {
 	width: 239px;
-	height: 136px;
+	height: 144px;
 }
 
 #t7 {
@@ -413,7 +413,55 @@ main.index_main{
 
 #t8 {
 	width: 270px;
-	height: 167px;
+	height: 180px;
+}
+
+#t1 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t2 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t3 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t4 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t5 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t6 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t7 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#t8 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .quick_start-title{
@@ -457,6 +505,16 @@ main.index_main{
 
 .quick_start{
 	margin-bottom: 304px;
+}
+
+.step_image img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.step_image{
+	border: 1px solid #fff;
 }
 
 /*AUTH PAGES*/
@@ -621,6 +679,10 @@ li.input_elem {
 	line-height: 61px;
 }
 
+li.input_elem[field_id="5"]{
+	font-size: 21px;	
+}
+
 .create_tmp {
 	margin-top: 70px;
 	margin-bottom: 130px;
@@ -731,9 +793,9 @@ i.fa-trash.delete_input{
 }
 
 .textarea_wrapper i.fa-trash.delete_input{
-	position: absolute;
+/*	position: absolute;
 	top: 10px;
-	left: 720px;
+	left: 720px;*/
 }
 
 i.fa-trash.delete_input:hover{
@@ -756,7 +818,7 @@ textarea.input_text_css {
 textarea.input_text_css:focus{
 	outline: none;
 	border: 2px solid #4AD4FF;
-	transition-duration: 0.3s;
+	/*transition-duration: 0.3s;*/
 	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
 }
 
@@ -1241,7 +1303,7 @@ body.lock {
 .templates_view_buttons{
 	display: flex;
 	margin-left: 60px;
-	margin-right: 694px;
+	margin-right: 800px;
 
 }
 
@@ -1670,19 +1732,14 @@ main.help{
 
 
 
-textarea.input_text_css:focus{
-	outline: none;
-	border: 2px solid #4AD4FF;
-	transition-duration: 0.3s;
-	box-shadow: 4px 4px 10px rgba(74, 212, 255, 0.25);
-}
-
-
 /*MEDIA*/
 
 @media screen and (max-width: 1300px){
 	/*index*/
 
+	.menu {
+		margin-top: 17px;
+	}
 
 	.offer_image{
 		display: none;
@@ -1755,7 +1812,7 @@ textarea.input_text_css:focus{
 
 
 	.templates_view_buttons{
-		margin-right: 603px;
+		margin-right: 705px;
 	}
 
 	.sort_by{
@@ -1781,6 +1838,10 @@ textarea.input_text_css:focus{
 
 	.info_wrap{
 		width: 1024px;
+	}
+
+	.message.error{
+		height: 90px;
 	}
 
 }
@@ -1827,7 +1888,7 @@ textarea.input_text_css:focus{
 	}
 
 	.templates_view_buttons{
-		margin-right: 563px;
+		margin-right: 521px;
 	}
 
 	.sort_by{
@@ -1886,7 +1947,7 @@ textarea.input_text_css:focus{
 	}
 
 	.templates_view_buttons{
-		margin-right: 386px;
+		margin-right: 427px;
 	}
 
 	.sort_by {
@@ -1908,8 +1969,9 @@ textarea.input_text_css:focus{
 	input.input_date_css,
 	input.input_email_css,
 	input.input_range_css{
-		margin-left: 93px;
+		margin-left: 40px;
 	}
+
 
 	.message_contact_input{
 		width: 617px;
@@ -1931,6 +1993,10 @@ textarea.input_text_css:focus{
 		width: 768px;
 	}
 
+	.popup__content{
+		max-width: 760px;
+	}
+
 }
 
 @media screen and (max-width: 768px){
@@ -1947,11 +2013,40 @@ textarea.input_text_css:focus{
 	}
 
 	.menu{
-		margin-left: -8%;
+		margin-left: 0%;
+	}
+
+	.menu_el{
+		margin-right: 30px;
 	}
 
 	.offer{
-		margin-left: 0%;
+		margin-left: -5%;
+	}
+
+	.offer h2{
+		font-size: 35px;
+		margin-left: 27px;
+	}
+
+	.offer-card{
+		margin-right: 54px;
+	}
+
+	.offer-cards{
+		margin-left: 30px;
+	}
+
+	.offer_auth{
+		margin-left: 25px;
+	}
+
+	.offer_auth__sign-in{
+		padding: 10px 35px 10px 35px;
+	}
+
+	.offer_auth__sign-up{
+		padding: 10px 15px 10px 15px;
 	}
 
 	.templates_container{
@@ -1970,6 +2065,17 @@ textarea.input_text_css:focus{
 
 	}
 
+	input.input_text_css,
+	textarea.input_text_css,
+	input.input_number_css,
+	div.select_wrap,
+	input.input_date_css,
+	input.input_email_css,
+	input.input_range_css{
+		margin-left: 15px;
+	}
+
+
 	#t1, #t2{
 		width: 370px;
 		margin-left: 28px;
@@ -1984,7 +2090,7 @@ textarea.input_text_css:focus{
 	}
 
 	.templates_view_buttons{
-		margin-right: 80px;
+		margin-right: 60px;
 	}
 
 	.grid_view-btn{
@@ -2016,17 +2122,21 @@ textarea.input_text_css:focus{
 
 	.input_list{
 		margin-bottom: 60px;
-		margin-left: 20%;
+		margin-left: 19%;
 	}
 
 	.workspace{
-		margin-left: -10px;
+		margin-left: -5px;
 		width: 435px;
 		padding-bottom: 30px;
 	}
 
 	.popup__content{
-		max-width: 531px;
+		max-width: 400px;
+	}
+
+	.working {
+		width: 312px !important;
 	}
 
 	.message_contact_input{
@@ -2056,6 +2166,10 @@ textarea.input_text_css:focus{
 		margin-left: 26px;
 	}
 
+	.register-form .submit_btn{
+		margin-left: 45px;
+	}
+
 	.forgot_pasword__link{
 		margin-left: -124px;
 	}
@@ -2064,6 +2178,23 @@ textarea.input_text_css:focus{
 		width: 425px;
 	}
 
+	.tab {
+    	width: 109px;
+    	height: 34px;
+    	font-size: 16px;
+	}
+
+	form[action="/login/"] .submit_btn{
+		margin-left: 0px;
+	}
+
+	form[action="/reset-password/"] .submit_btn{
+		margin-left: 0px;
+	}
+
+	.message.error{
+		height: 190px;
+	}
 
 }
 
@@ -2082,10 +2213,23 @@ textarea.input_text_css:focus{
 
 	.menu_el{
 		margin-bottom: 15px;
+		text-align: center;
+	}
+
+	.menu_el:nth-child(3){
+		margin-right: 30px;
+	}
+
+	.message{
+		height: 93px;
+	}
+
+	.message.error{
+		height: 190px;
 	}
 
 	.menu{
-		margin-left: 33%;
+		margin-left: 13%;
 	}
 
 	header{
@@ -2099,6 +2243,22 @@ textarea.input_text_css:focus{
 
 	.offer{
 		width: 375px;
+		margin-left: -2%;
+	}
+
+	.offer_auth{
+		margin-left: 25px;
+	}
+
+	.offer_auth__sign-in{
+		padding: 10px 42px 10px 42px;
+	}
+
+	.offer_auth__sign-up{
+		padding: 10px 23px 10px 23px;
+	}
+
+	.templates_ex {
 	}
 
 	.offer-cards{
@@ -2119,6 +2279,10 @@ textarea.input_text_css:focus{
 		margin-bottom: 20px;
 	}
 
+	.input_list{
+		margin-left: 15%;
+	}
+
 	.offer_auth__sign-in{
 		margin-right: 0px;
 		margin-left: 27%;
@@ -2137,7 +2301,7 @@ textarea.input_text_css:focus{
 	}
 
 	.templates_ex{
-		margin-top: 810px;
+    	margin-top: 1000px;
 	}
 
 	#t1, #t2{
@@ -2163,18 +2327,29 @@ textarea.input_text_css:focus{
 	}
 
 	.template_card {
-    width: 232px;
-    po
-  }
+    	width: 232px;
+  	}
 
-  .text_emitation{
-  	margin-left: 29px;
-  }
+  	.text_emitation{
+  		margin-left: 29px;
+  	}
 
-  .workspace{
-		margin-left: 0px;
+  	.popup__content{
+		max-width: 340px;
+	}		
+
+	.working {
+		width: 100px !important;
+	}
+
+  	.workspace{
+		margin-left: -7px;
 		width: 390px;
 		padding-bottom: 30px;
+	}
+
+	.sort_by{
+		margin-left: 10px;
 	}
 
 	input.input_text_css,
@@ -2184,11 +2359,11 @@ textarea.input_text_css:focus{
 	input.input_date_css,
 	input.input_email_css,
 	input.input_range_css{
-		margin-left: 69px;
+		margin-left: 17px;
 	}
 
 	i.input_settings{
-		display: none;
+		/*display: none;*/
 	}
 
 	.message_contact_input{
@@ -2218,7 +2393,7 @@ textarea.input_text_css:focus{
 	}
 
 	.submit_btn{
-		margin-left: 51px;
+		margin-left: 0px;
 	}
 
 	.forgot_pasword__link {
@@ -2227,6 +2402,19 @@ textarea.input_text_css:focus{
 
 	.info_wrap{
 		width: 320px;
+	}
+
+	.tabs{
+		display: block;
+	}
+
+	.tab{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.register-form .submit_btn{
+		margin-left: 40px;
 	}
 
 }
@@ -2250,11 +2438,17 @@ textarea.input_text_css:focus{
 
 	.offer{
 		width: 320px;
+		margin-left: -3%;
 	}
 
 	.offer h2{
 		font-size: 25px;
 	}
+
+	.popup__content{
+		max-width: 215px;
+	}		
+
 
 	.templates_ex{
 		margin-top: 900px;
@@ -2273,6 +2467,11 @@ textarea.input_text_css:focus{
 		text-align: center;
 		margin-left: -47px;
 		display: block;
+	}
+
+	.step h4{
+		margin-left: 21px;
+    	white-space: nowrap;
 	}
 
 	#t1, #t2, #t4{
@@ -2304,11 +2503,12 @@ textarea.input_text_css:focus{
 	}
 
 	.workspace{
-		margin-left: -38px;
+		margin-left: -7px;
+		width: 333px;
 	}
 
 	.input_list{
-		margin-left: 7%;
+		margin-left: 8%;
 	}
 
 	.message_contact_input{
@@ -2330,7 +2530,11 @@ textarea.input_text_css:focus{
 	}
 
 	.submit_btn{
-		margin-left: 20px;
+		margin-left: 0px;
+	}
+
+	.register-form .submit_btn{
+		margin-left: 14px;
 	}
 
 	.sign_in__link{
@@ -2339,6 +2543,27 @@ textarea.input_text_css:focus{
 
 	.forgot_pasword__link{
 		float: none;
+	}
+
+	.sort_by select{
+		width: 190px;
+	}
+
+	.sort_by {
+    	margin-left: 4px;
+	}
+
+	.templates_view_buttons {
+		margin-left: 40px;
+	}
+	.save_template{
+		margin-right: 5px;
+    	margin-left: 20px;
+    	width: 127px;
+	}
+
+	.delete_template{
+		margin-right: -5px;
 	}
 
 }
